@@ -1,25 +1,29 @@
 import logo from './logo.svg';
 import './App.css';
+import {MainPage} from './shopping';
+import {useState, useEffect} from 'react';
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+  const [cartItems, setCartItems] = useState([])
+  const handleAddToCart = ((id) => {
+    cartItems.push(id);
+    let cart = [...cartItems]
+    setCartItems(cart);
+  });
+  return (<div className="main">
+    <AppBar cartItems={cartItems}/>
+    <MainPage addToCart={handleAddToCart}/>
     </div>
   );
+}
+
+function AppBar(props) {
+  return (
+    <div className='appBar'>
+      <div className="titleBar">Sweet Apple Acres</div>
+      <div className="cart">{props.cartItems.length} Cart</div>
+    </div>
+  )
 }
 
 export default App;
